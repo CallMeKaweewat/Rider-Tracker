@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Rider Tracker">
+<meta name="theme-color" content="#0c0c0e">
+<title>Rider Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Noto+Sans+Thai:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --bg2: #111113;
+  --bg3: #18181c;
+  --border: #222225;
+  --border2: #1e1e22;
+  --text: #f0f0f2;
+  --muted: #8a8a90;
+  --muted2: #555558;
+  --green: #34d399;
+  --red: #f87171;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --green-bg: #0a1f14;
+  --green-border: #1a3a24;
+  --red-bg: #1f0a0a;
+  --red-border: #3a1a1a;
+  --amber-bg: #1f160a;
+  --amber-border: #3a2a1a;
+  --blue-bg: #0a121f;
+  --blue-border: #1a2a3a;
+  --purple-bg: #120a1f;
+  --purple-border: #221a3a;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --shadow: none;
+}
+
+/* WHITE THEME OVERRIDES */
+body.theme-white {
+  --bg: #f5f5f7;
+  --bg2: #ffffff;
+  --bg3: #ffffff;
+  --border: #e0e0e5;
+  --border2: #ebebf0;
+  --text: #1a1a1e;
+  --muted: #888890;
+  --muted2: #bbbbc0;
+  --green: #10a870;
+  --red: #e85050;
+  --amber: #d4920a;
+  --blue: #3b82f6;
+  --purple: #7c3aed;
+  --green-bg: #e8faf3;
+  --green-border: #a7e8cc;
+  --red-bg: #fff0f0;
+  --red-border: #f5b8b8;
+  --amber-bg: #fffbeb;
+  --amber-border: #f5d98a;
+  --blue-bg: #eff6ff;
+  --blue-border: #bfdbfe;
+  --purple-bg: #f5f3ff;
+  --purple-border: #ddd6fe;
+  --shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+
+body.theme-white .nav-tab.on { background: #1a1a1e; color: #fff; }
+body.theme-white .btn-green { background: #10a870; }
+body.theme-white .btn-red { background: #e85050; }
+body.theme-white .quick-btn { color: #555; }
+body.theme-white .ord-btn-m { background: #fff0f0; border-color: #f5b8b8; color: #e85050; }
+body.theme-white .ord-btn-p { background: #e8faf3; border-color: #a7e8cc; color: #10a870; }
+body.theme-white .sub-btn.on { background: #10a870; color: #fff; }
+body.theme-white .prog-fill { background: #10a870; }
+body.theme-white .ov-bar { background: #10a870; }
+body.theme-white .work-badge.on { background: #e8faf3; color: #10a870; border-color: #a7e8cc; }
+body.theme-white .card { box-shadow: var(--shadow); }
+body.theme-white .stat-box { box-shadow: var(--shadow); }
+body.theme-white .hist-card { box-shadow: var(--shadow); }
+body.theme-white .timer-card { box-shadow: var(--shadow); }
+body.theme-white .install-banner { background: linear-gradient(135deg, #e8faf3, #eff6ff); }
+body.theme-white .net-final { background: #e8faf3; border-color: #a7e8cc; }
+body.theme-white .mb-g { background: #e8faf3; border-color: #a7e8cc; }
+body.theme-white .mb-r { background: #fff0f0; border-color: #f5b8b8; }
+body.theme-white .mb-a { background: #fffbeb; border-color: #f5d98a; }
+body.theme-white .mb-b { background: #eff6ff; border-color: #bfdbfe; }
+body.theme-white .mb-p { background: #f5f3ff; border-color: #ddd6fe; }
+body.theme-white .pill-g { background: #e8faf3; border-color: #a7e8cc; }
+body.theme-white .pill-r { background: #fff0f0; border-color: #f5b8b8; }
+body.theme-white .pill-a { background: #fffbeb; border-color: #f5d98a; }
+body.theme-white .pill-w { background: #f0f0f5; border-color: #dddde5; }
+body.theme-white .cday { background: #f0f0f5; }
+body.theme-white .cday.has-data { background: #e8faf3; border-color: #a7e8cc; }
+body.theme-white .order-del { color: #ccc; }
+body.theme-white .hist-body { background: #f9f9fb; }
+body.theme-white .empty-state i { color: #ccc; }
+body.theme-white .empty-text { color: #ccc; }
+body.theme-white .empty-sub { color: #ddd; }
+body.theme-white .ver-tag { color: var(--muted); }
+body.theme-white .tip-chip.on { background: #fffbeb; color: #d4920a; border-color: #f5d98a; }
+body.theme-white .th-btn.on { background: #e8faf3; border-color: #a7e8cc; color: #10a870; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  font-family: 'Noto Sans Thai', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  touch-action: pan-y;
+}
+
+body { overscroll-behavior: none; touch-action: pan-y; }
+
+.app-shell {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* STATUS BAR SPACER */
+.status-bar {
+  height: var(--safe-top);
+  background: var(--bg3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* HEADER */
+.app-header {
+  background: var(--bg3);
+  padding: 12px 16px 10px;
+  border-bottom: 0.5px solid var(--border);
+  position: sticky;
+  top: var(--safe-top);
+  z-index: 99;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.app-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
+
+.work-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  letter-spacing: .02em;
+  transition: all .3s;
+}
+.work-badge.on { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
+.work-badge.off { background: #1a1a1e; color: var(--muted); border: 0.5px solid var(--border2); }
+.work-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.work-badge.on .dot { animation: pulse 1.5s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.8); }
+}
+
+/* NAV TABS */
+.nav-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px;
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 3px;
+}
+
+.nav-tab {
+  padding: 8px 0;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  letter-spacing: .01em;
+}
+.nav-tab .tab-icon { font-size: 15px; line-height: 1; }
+.nav-tab.on { background: var(--text); color: var(--bg); }
+body.theme-white .nav-tab.on { background: #1a1a1e; color: #fff; }
+body.theme-white .work-badge.off { background: #f0f0f5; color: var(--muted); border-color: #e0e0e8; }
+
+/* SCROLL CONTENT */
+.scroll-content {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 12px 14px calc(16px + var(--safe-bottom));
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+}
+
+/* CARDS */
+.card {
+  background: var(--bg3);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 0.5px solid var(--border);
+}
+.card-sm { border-radius: 14px; padding: 13px; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* TIMER */
+.timer-card {
+  background: var(--bg2);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  border: 0.5px solid var(--border2);
+}
+.timer-display {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  flex: 1;
+  font-variant-numeric: tabular-nums;
+}
+.timer-label { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 4px; }
+
+/* MAIN BUTTON */
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 13px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  transition: all .15s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn:active { transform: scale(.96); }
+.btn i { font-size: 16px; }
+.btn-green { background: var(--green); color: var(--bg); }
+.btn-red { background: var(--red); color: var(--bg); }
+.btn-amber { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
+.btn-dark { background: #1e1e22; color: var(--muted); }
+.btn-sm { padding: 10px 14px; font-size: 13px; width: auto; border-radius: 10px; }
+
+/* INPUT */
+.inp {
+  width: 100%;
+  background: var(--bg2);
+  border: 0.5px solid #2a2a2e;
+  border-radius: 12px;
+  padding: 13px;
+  color: var(--text);
+  font-size: 16px; /* prevent zoom on iOS */
+  margin-bottom: 8px;
+  outline: none;
+  font-family: inherit;
+  transition: border .15s;
+  -webkit-appearance: none;
+}
+.inp:focus { border-color: var(--green); }
+.inp::placeholder { color: var(--muted2); }
+
+/* STAT GRID */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+
+.stat-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 13px;
+  border: 0.5px solid var(--border);
+}
+.stat-lb { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+.stat-val { font-size: 22px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; letter-spacing: -.02em; line-height: 1.1; }
+.stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+/* PROGRESS */
+.prog-wrap { margin-top: 12px; }
+.prog-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+.prog-track { background: var(--bg2); border-radius: 999px; height: 5px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--green); border-radius: 999px; transition: width .6s ease; }
+
+/* DETAIL ROW */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 13px;
+  font-size: 13px;
+  border-bottom: 0.5px solid var(--border2);
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.detail-label i { font-size: 13px; }
+
+/* PILL */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.pill-g { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
+.pill-r { background: var(--red-bg); color: var(--red); border: 0.5px solid var(--red-border); }
+.pill-a { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
+.pill-w { background: #1e1e22; color: var(--muted); border: 0.5px solid var(--border2); }
+
+/* QUICK BUTTONS */
+.quick-row { display: flex; gap: 4px; margin-top: 8px; }
+.quick-btn {
+  flex: 1;
+  background: var(--bg2);
+  border: 0.5px solid #2a2a2e;
+  border-radius: 10px;
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all .15s;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.quick-btn:active { background: #1e1e22; color: var(--text); transform: scale(.95); }
+
+/* TIP CHIPS */
+.tip-row { display: flex; gap: 5px; margin-bottom: 8px; }
+.tip-chip {
+  flex: 1;
+  background: var(--bg2);
+  border: 0.5px solid #2a2a2e;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+  font-weight: 700;
+  transition: all .15s;
+  font-family: inherit;
+}
+.tip-chip.on { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+
+/* ORDER LIST */
+.order-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 11px 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  border: 0.5px solid var(--border2);
+}
+.order-num { font-size: 13px; font-weight: 600; }
+.order-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.order-del {
+  background: none; border: none;
+  color: var(--muted); font-size: 20px;
+  cursor: pointer; padding: 0 4px;
+  line-height: 1; transition: color .15s;
+  font-family: inherit;
+}
+.order-del:active { color: var(--red); }
+
+/* NET DISPLAY */
+.net-display {
+  font-size: 38px;
+  font-weight: 800;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+
+/* ORD CONTROLS */
+.ord-controls { display: flex; gap: 8px; margin-top: 10px; }
+.ord-btn {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+  line-height: 1;
+}
+.ord-btn:active { transform: scale(.93); }
+.ord-btn-m { background: var(--red-bg); border: 0.5px solid var(--red-border); color: var(--red); }
+.ord-btn-p { background: var(--green-bg); border: 0.5px solid var(--green-border); color: var(--green); }
+
+/* DAY ACTIONS */
+.day-actions { display: flex; gap: 8px; margin-bottom: 10px; }
+
+/* HISTORY */
+.hist-card {
+  background: var(--bg3);
+  border-radius: 16px;
+  margin-bottom: 8px;
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+}
+.hist-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.hist-body {
+  border-top: 0.5px solid var(--border2);
+  padding: 14px 16px;
+  background: #0e0e10;
+}
+.hist-chevron { font-size: 14px; color: var(--muted); transition: transform .25s; }
+.hist-chevron.open { transform: rotate(180deg); }
+
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 12px; }
+.mini-box { border-radius: 12px; padding: 11px; border: 0.5px solid transparent; }
+.mb-g { background: var(--green-bg); border-color: var(--green-border); }
+.mb-r { background: var(--red-bg); border-color: var(--red-border); }
+.mb-a { background: var(--amber-bg); border-color: var(--amber-border); }
+.mb-b { background: var(--blue-bg); border-color: var(--blue-border); }
+.mb-p { background: var(--purple-bg); border-color: var(--purple-border); }
+.mini-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+.mini-val { font-size: 18px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+
+.net-final { background: var(--green-bg); border-radius: 12px; padding: 14px; margin-top: 12px; border: 0.5px solid var(--green-border); }
+
+/* CALENDAR */
+.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cal-nav-btn {
+  background: #1a1a1e; border: 0.5px solid #2a2a2e;
+  color: var(--muted); border-radius: 9px;
+  padding: 7px 14px; cursor: pointer;
+  font-size: 16px; font-family: inherit;
+  transition: all .15s;
+}
+.cal-nav-btn:active { background: #2a2a2e; }
+.cal-month { font-size: 13px; font-weight: 700; }
+
+.cal-hdr { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 4px; }
+.cal-dhdr { text-align: center; font-size: 10px; color: var(--muted); padding: 3px 0; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cday {
+  border-radius: 8px;
+  padding: 5px 3px;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg2);
+  border: 0.5px solid transparent;
+  cursor: pointer;
+}
+.cday.has-data { background: var(--green-bg); border-color: var(--green-border); }
+.cd-num { font-size: 10px; color: var(--muted); text-align: center; }
+.cd-val { font-size: 9px; font-weight: 700; color: var(--green); text-align: center; font-family: 'IBM Plex Mono', monospace; }
+
+/* OVERVIEW BARS */
+.sub-bar { display: flex; gap: 3px; background: var(--bg2); padding: 3px; border-radius: 12px; margin-bottom: 12px; }
+.sub-btn { flex: 1; padding: 8px 0; border: none; border-radius: 9px; font-size: 11px; font-weight: 700; cursor: pointer; background: transparent; color: var(--muted); transition: all .2s; font-family: inherit; }
+.sub-btn.on { background: var(--green); color: var(--bg); }
+
+.ov-seg { margin-bottom: 12px; }
+.ov-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+.ov-track { background: #1a1a1e; border-radius: 999px; height: 4px; overflow: hidden; }
+.ov-bar { height: 100%; background: var(--green); border-radius: 999px; transition: width .6s ease; }
+
+/* SETTINGS */
+.set-sec { margin-bottom: 20px; }
+.set-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.theme-row { display: flex; gap: 5px; }
+.th-btn {
+  flex: 1; background: var(--bg2);
+  border: 0.5px solid #2a2a2e;
+  border-radius: 10px; padding: 10px 0;
+  color: var(--muted); font-size: 11px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+  text-align: center; font-family: inherit;
+}
+.th-btn.on { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+.th-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 3px; vertical-align: -1px; border: 0.5px solid #444; }
+
+.act-row { display: flex; gap: 6px; }
+
+/* COLORS */
+.green { color: var(--green); }
+.red { color: var(--red); }
+.amber { color: var(--amber); }
+.blue { color: var(--blue); }
+.purple { color: var(--purple); }
+.white { color: var(--text); }
+
+/* DIVIDER */
+.divider { border: none; border-top: 0.5px solid var(--border2); margin: 12px 0; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 24px 0; }
+.empty-state i { font-size: 32px; color: var(--muted); display: block; margin-bottom: 8px; }
+.empty-text { font-size: 13px; color: var(--muted); }
+.empty-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* INSTALL BANNER */
+.install-banner {
+  background: linear-gradient(135deg, #0a1f14, #0a121f);
+  border: 0.5px solid var(--green-border);
+  border-radius: 14px;
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.install-banner:active { transform: scale(.98); }
+.install-icon { font-size: 24px; }
+.install-text { flex: 1; }
+.install-title { font-size: 13px; font-weight: 700; color: var(--green); }
+.install-sub { font-size: 11px; color: #5a9a7a; margin-top: 2px; }
+.install-close { background: none; border: none; color: #3a6a4a; font-size: 18px; cursor: pointer; padding: 4px; font-family: inherit; }
+
+/* CREDIT WATERMARK CARD */
+.credit-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #0d1f2d 0%, #0a1a10 50%, #1a0d2a 100%);
+  border: 0.5px solid #2a3a4a;
+  padding: 28px 20px 22px;
+  text-align: center;
+}
+body.theme-white .credit-card {
+  background: linear-gradient(135deg, #e8f4ff 0%, #e8faf3 50%, #f3e8ff 100%);
+  border-color: #c0d8f0;
+}
+
+.credit-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+body.theme-white .credit-watermark { color: rgba(0,0,0,0.05); }
+
+.credit-inner { position: relative; z-index: 1; }
+
+.credit-logo { font-size: 36px; margin-bottom: 6px; filter: drop-shadow(0 2px 8px rgba(52,211,153,.3)); }
+
+.credit-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 800;
+  color: #f0f0f2;
+  letter-spacing: .06em;
+  margin-bottom: 3px;
+}
+body.theme-white .credit-name { color: #1a1a2e; }
+
+.credit-version {
+  font-size: 11px;
+  color: var(--green);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: .08em;
+  margin-bottom: 14px;
+}
+body.theme-white .credit-version { color: #10a870; }
+
+.credit-divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  margin: 0 auto 14px;
+  border-radius: 2px;
+}
+body.theme-white .credit-divider { background: linear-gradient(90deg, transparent, #10a870, transparent); }
+
+.credit-owner-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #3a5a4a;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+body.theme-white .credit-owner-label { color: #7aaa8a; }
+
+.credit-owner {
+  font-size: 20px;
+  font-weight: 800;
+  color: #e0f0e8;
+  letter-spacing: .02em;
+  margin-bottom: 10px;
+}
+body.theme-white .credit-owner { color: #1a3a2a; }
+
+.credit-contact { margin-bottom: 12px; }
+.credit-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(52,211,153,.1);
+  border: 0.5px solid rgba(52,211,153,.25);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: .01em;
+  transition: all .2s;
+}
+body.theme-white .credit-email { background: rgba(16,168,112,.1); border-color: rgba(16,168,112,.3); color: #10a870; }
+.credit-email:active { transform: scale(.97); background: rgba(52,211,153,.2); }
+
+.credit-note {
+  font-size: 10px;
+  color: #2a4a3a;
+  letter-spacing: .04em;
+}
+body.theme-white .credit-note { color: #8aaa9a; }
+
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+/* EDIT MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 var(--safe-bottom);
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+.modal-sheet {
+  background: var(--bg3);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 430px;
+  padding: 20px 18px calc(20px + var(--safe-bottom));
+  border-top: 0.5px solid var(--border);
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp { from { transform:translateY(100%) } to { transform:translateY(0) } }
+.modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  font-family: inherit;
+}
+.modal-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+.modal-label:first-of-type { margin-top: 0; }
+.modal-actions { display: flex; gap: 8px; margin-top: 18px; }
+.btn-edit-hist {
+  background: none;
+  border: 0.5px solid var(--border2);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-edit-hist:active { background: var(--bg2); color: var(--text); }
+.btn-del-hist {
+  background: var(--red-bg);
+  border: 0.5px solid var(--red-border);
+  border-radius: 8px;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-del-hist:active { opacity: .7; }
+
+/* CHART PAGE */
+.chart-range-bar { display:flex; gap:3px; background:var(--bg2); padding:3px; border-radius:12px; margin-bottom:12px; }
+.cr-btn { flex:1; padding:8px 0; border:none; border-radius:9px; font-size:11px; font-weight:700; cursor:pointer; background:transparent; color:var(--muted); transition:all .2s; font-family:inherit; }
+.cr-btn.on { background:var(--green); color:var(--bg); }
+.chart-summary-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-bottom:12px; }
+.cs-box { border-radius:14px; padding:12px 10px; text-align:center; border:0.5px solid transparent; }
+.cs-lbl { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px; }
+.cs-val { font-size:16px; font-weight:700; font-family:'IBM Plex Mono',monospace; }
+.pie-wrap { position:relative; display:flex; justify-content:center; align-items:center; margin:8px 0 16px; }
+.pie-legend { display:flex; flex-direction:column; gap:8px; }
+.leg-item { display:flex; align-items:center; gap:8px; font-size:12px; }
+.leg-dot { width:11px; height:11px; border-radius:3px; flex-shrink:0; }
+.leg-label { flex:1; color:var(--muted); font-weight:600; }
+.leg-val { font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; }
+.leg-pct { font-size:11px; color:var(--muted); margin-left:4px; }
+.bar-chart-wrap { margin-top:4px; }
+.bc-row { margin-bottom:10px; }
+.bc-top { display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; }
+.bc-lbl { color:var(--muted); font-weight:600; }
+.bc-track { background:var(--bg2); border-radius:999px; height:8px; overflow:hidden; position:relative; }
+.bc-fill { height:100%; border-radius:999px; transition:width .7s ease; }
+.bc-sub { font-size:10px; color:var(--muted); margin-top:3px; text-align:right; }
+.no-data-chart { text-align:center; padding:40px 0; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+
+<!-- EDIT HISTORY MODAL -->
+<div id="editModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeEditModal()">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-title">
+      <span>✏️ แก้ไขประวัติ</span>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+    <div class="modal-label">💰 รายรับ (฿)</div>
+    <input class="inp" id="editIncome" type="number" inputmode="decimal" placeholder="0">
+    <div class="modal-label">⭐ ทิป (฿)</div>
+    <input class="inp" id="editTips" type="number" inputmode="decimal" placeholder="0">
+    <div class="modal-label">🧾 ค่าใช้จ่าย (฿)</div>
+    <input class="inp" id="editExpenses" type="number" inputmode="decimal" placeholder="0">
+    <div class="modal-label">📦 จำนวนออเดอร์</div>
+    <input class="inp" id="editOrders" type="number" inputmode="numeric" placeholder="0">
+    <div class="modal-actions">
+      <button class="btn btn-green" style="flex:1" onclick="saveEditHistory()">💾 บันทึก</button>
+      <button class="btn-del-hist" onclick="delHistory()">🗑️ ลบวันนี้</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+  <div class="status-bar" id="statusBar"></div>
+
+  <div class="app-header">
+    <div class="header-top">
+      <div class="app-title">⚡ RIDER</div>
+      <span class="work-badge off" id="workBadge">
+        <span class="dot"></span>
+        <span id="workBadgeText">หยุด</span>
+      </span>
+    </div>
+    <div class="nav-tabs" style="grid-template-columns:1fr 1fr 1fr 1fr">
+      <button class="nav-tab on" onclick="go('dash')" id="tab-dash">
+        <span class="tab-icon">🏠</span>วันนี้
+      </button>
+      <button class="nav-tab" onclick="go('history')" id="tab-history">
+        <span class="tab-icon">📋</span>ประวัติ
+      </button>
+      <button class="nav-tab" onclick="go('chart')" id="tab-chart">
+        <span class="tab-icon">📈</span>กราฟ
+      </button>
+      <button class="nav-tab" onclick="go('settings')" id="tab-settings">
+        <span class="tab-icon">⚙️</span>ตั้งค่า
+      </button>
+    </div>
+  </div>
+
+  <div class="scroll-content" id="mainContent"></div>
+</div>
+
+<script>
+const SK = 'riderv5';
+let S = {
+  goal: 2000, oGoal: 30,
+  income: 0, expenses: 0, tips: 0,
+  expList: [], orders: [], cnt: 0,
+  history: [], theme: 'dark',
+  hView: 'daily', selM: new Date().toISOString(),
+  wStart: null, wOn: false,
+  expanded: {}, pendTip: 0,
+  showInstall: true
+};
+let tab = 'dash', ticker = null, chartRange = '7';
+let deferredPrompt = null;
+
+// PWA INSTALL
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(r => {
+      if (r.outcome === 'accepted') { S.showInstall = false; save(); }
+      deferredPrompt = null;
+    });
+  } else {
+    alert('เพื่อติดตั้ง:\niOS: แตะ Share → "เพิ่มในหน้าจอหลัก"\nAndroid: เมนู → "ติดตั้งแอป"');
+  }
+}
+
+function dismissInstall() {
+  S.showInstall = false; save(); render();
+}
+
+// STORAGE
+function load() {
+  try { const r = localStorage.getItem(SK); if (r) S = { ...S, ...JSON.parse(r) }; } catch (e) { }
+  applyTheme();
+  render();
+  if (S.wOn && S.wStart) startTick(); // after render so DOM is ready
+}
+
+function save() {
+  try { localStorage.setItem(SK, JSON.stringify(S)); } catch (e) { }
+}
+
+// THEME
+function applyTheme() {
+  const themes = {
+    dark:     { bg: '#0c0c0e', bg2: '#111113', bg3: '#18181c', meta: '#18181c' },
+    midnight: { bg: '#05050f', bg2: '#0a0a18', bg3: '#0f0f20', meta: '#0f0f20' },
+    forest:   { bg: '#050f09', bg2: '#0a180d', bg3: '#0f2012', meta: '#0f2012' },
+    slate:    { bg: '#090c11', bg2: '#0e1118', bg3: '#14191f', meta: '#14191f' },
+    white:    { bg: '#f5f5f7', bg2: '#ffffff',  bg3: '#ffffff',  meta: '#ffffff'  }
+  };
+  const t = themes[S.theme] || themes.dark;
+  document.body.classList.toggle('theme-white', S.theme === 'white');
+  if (S.theme !== 'white') {
+    document.documentElement.style.setProperty('--bg',  t.bg);
+    document.documentElement.style.setProperty('--bg2', t.bg2);
+    document.documentElement.style.setProperty('--bg3', t.bg3);
+  }
+  document.body.style.background = t.bg;
+  const sb = document.getElementById('statusBar');
+  if (sb) sb.style.background = t.bg3;
+  document.querySelector('meta[name="theme-color"]').content = t.meta;
+  const ms = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+  if (ms) ms.content = S.theme === 'white' ? 'default' : 'black-translucent';
+}
+
+// NAV
+function go(t) {
+  tab = t;
+  ['dash', 'history', 'chart', 'settings'].forEach(id => {
+    document.getElementById('tab-' + id).classList.toggle('on', id === t);
+  });
+  render();
+  document.getElementById('mainContent').scrollTop = 0;
+}
+
+// FORMAT
+function fmt(n) { return isNaN(n) || !isFinite(n) ? '0' : Math.round(n).toLocaleString('th-TH'); }
+function fmtD(n, d = 1) { return isNaN(n) || !isFinite(n) ? '0.0' : n.toFixed(d); }
+
+function workedStr(ms) {
+  if (!ms || ms <= 0) return '0:00';
+  const m = Math.floor(ms / 60000), h = Math.floor(m / 60), mn = m % 60;
+  return `${h}:${String(mn).padStart(2, '0')}`;
+}
+
+function workedStrSec(ms) {
+  if (!ms || ms <= 0) return '0:00:00';
+  const s = Math.floor(ms / 1000);
+  const h = Math.floor(s / 3600);
+  const mn = Math.floor((s % 3600) / 60);
+  const sc = s % 60;
+  return `${h}:${String(mn).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;
+}
+
+function ratePerHour(inc, ms) { return ms < 60000 ? 0 : (inc / (ms / 3600000)); }
+function ratePerMin(inc, ms) { return ms < 1000 ? 0 : (inc / (ms / 60000)); }
+
+// TIMER
+function startTick() {
+  if (ticker) clearInterval(ticker);
+  ticker = setInterval(() => {
+    if (!S.wOn || !S.wStart) return;
+    const ms = Date.now() - S.wStart;
+    const el = document.getElementById('tdisp');
+    if (el) el.textContent = workedStrSec(ms);
+    const total = S.income + S.tips;
+    const rph = document.getElementById('rph');
+    const rpm = document.getElementById('rpm');
+    if (rph) rph.textContent = fmt(ratePerHour(total, ms));
+    if (rpm) rpm.textContent = fmtD(ratePerMin(total, ms));
+    const badge = document.getElementById('workBadge');
+    if (badge) {
+      badge.className = 'work-badge on';
+      document.getElementById('workBadgeText').textContent = workedStr(ms);
+    }
+  }, 1000);
+}
+
+// RENDER
+function render() {
+  if (tab === 'dash') renderDash();
+  else if (tab === 'history') renderHistory();
+  else if (tab === 'chart') renderChart();
+  else renderSettings();
+  updateBadge();
+}
+
+function updateBadge() {
+  const badge = document.getElementById('workBadge');
+  const badgeText = document.getElementById('workBadgeText');
+  if (!badge) return;
+  if (S.wOn) {
+    badge.className = 'work-badge on';
+    const ms = S.wStart ? Date.now() - S.wStart : 0;
+    badgeText.textContent = workedStr(ms);
+  } else {
+    badge.className = 'work-badge off';
+    badgeText.textContent = 'หยุด';
+  }
+}
+
+function renderDash() {
+  const net = S.income + S.tips - S.expenses;
+  const avg = S.cnt > 0 ? S.income / S.cnt : 0;
+  const ordLeft = Math.max(S.oGoal - S.cnt, 0);
+  const prog = Math.min((S.income / Math.max(S.goal, 1)) * 100, 100);
+  const ms = S.wOn && S.wStart ? Date.now() - S.wStart : 0;
+  const total = S.income + S.tips;
+  const rph = ratePerHour(total, ms);
+  const rpm = ratePerMin(total, ms);
+  const today = new Date().toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long' });
+
+  document.getElementById('mainContent').innerHTML = `
+    ${S.showInstall && !window.matchMedia('(display-mode: standalone)').matches ? `
+    <div class="install-banner" onclick="installApp()">
+      <div class="install-icon">📲</div>
+      <div class="install-text">
+        <div class="install-title">ติดตั้งเป็นแอปมือถือ</div>
+        <div class="install-sub">ใช้งานแบบออฟไลน์ได้</div>
+      </div>
+      <button class="install-close" onclick="event.stopPropagation();dismissInstall()">✕</button>
+    </div>` : ''}
+
+    <div style="text-align:center;margin-bottom:10px;padding-top:2px">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">${today}</div>
+      <div class="net-display ${net >= 0 ? 'green' : 'red'}">${fmt(net)} <span style="font-size:18px;font-weight:500;color:var(--muted)">฿</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">รายรับ+ทิป−ค่าใช้จ่าย</div>
+    </div>
+
+    <div class="timer-card">
+      <div style="flex:1">
+        <div class="timer-label">⏱️ เวลาทำงาน</div>
+        <div class="timer-display ${S.wOn ? 'green' : 'white'}" id="tdisp" style="font-size:24px">${S.wOn && S.wStart ? workedStrSec(Date.now() - S.wStart) : workedStrSec(0)}</div>
+      </div>
+      <button class="btn ${S.wOn ? 'btn-red' : 'btn-green'} btn-sm" onclick="toggleWork()">
+        <i class="ti ${S.wOn ? 'ti-player-pause-filled' : 'ti-player-play-filled'}"></i>
+        ${S.wOn ? 'หยุด' : 'เริ่ม'}
+      </button>
+    </div>
+
+    <div class="grid3">
+      <div class="stat-box">
+        <div class="stat-lb">⚡ ฿/ชั่วโมง</div>
+        <div class="stat-val blue" id="rph">${fmt(rph)}</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-lb">🔥 ฿/นาที</div>
+        <div class="stat-val purple" id="rpm">${fmtD(rpm)}</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-lb">📊 เฉลี่ย/ออเดอร์</div>
+        <div class="stat-val white">${fmt(avg)}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="section-label" style="margin-bottom:0">📊 สรุปวันนี้</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
+          ${S.income > 0 ? `<span class="pill pill-g">+${fmt(S.income)}</span>` : ''}
+          ${S.tips > 0 ? `<span class="pill pill-a">ทิป +${fmt(S.tips)}</span>` : ''}
+          ${S.expenses > 0 ? `<span class="pill pill-r">−${fmt(S.expenses)}</span>` : ''}
+        </div>
+      </div>
+      <div style="background:var(--bg2);border-radius:12px;overflow:hidden;border:0.5px solid var(--border2)">
+        <div class="detail-row">
+          <span class="detail-label">💰 รายรับ</span>
+          <span class="green" style="font-weight:700;font-family:'IBM Plex Mono',monospace">+${fmt(S.income)} ฿</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">⭐ ทิป</span>
+          <span class="amber" style="font-weight:700;font-family:'IBM Plex Mono',monospace">+${fmt(S.tips)} ฿</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">🧾 ค่าใช้จ่าย</span>
+          <span class="red" style="font-weight:700;font-family:'IBM Plex Mono',monospace">−${fmt(S.expenses)} ฿</span>
+        </div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-labels">
+          <span>${fmt(S.income)} ฿</span>
+          <span>เป้า ${fmt(S.goal)} ฿ · ${prog.toFixed(0)}%</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" style="width:${prog}%"></div></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="stat-box">
+        <div class="stat-lb">📦 ออเดอร์</div>
+        <div class="stat-val white">${S.cnt}<span style="font-size:13px;color:var(--muted)"> / ${S.oGoal}</span></div>
+        <div class="ord-controls">
+          <button class="ord-btn ord-btn-m" onclick="adjOrd(-1)">−</button>
+          <button class="ord-btn ord-btn-p" onclick="adjOrd(1)">+</button>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-lb">🎯 เหลืออีก</div>
+        <div class="stat-val ${ordLeft === 0 ? 'green' : 'white'}">${ordLeft}<span style="font-size:13px;color:var(--muted)"> ออเดอร์</span></div>
+        <div style="margin-top:10px">
+          <div class="prog-labels" style="margin-bottom:4px"><span></span><span>${Math.min(Math.round((S.cnt/Math.max(S.oGoal,1))*100),100)}%</span></div>
+          <div class="prog-track"><div class="prog-fill" style="width:${Math.min((S.cnt/Math.max(S.oGoal,1))*100,100)}%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">🛵 เพิ่มออเดอร์</div>
+      <input class="inp" type="number" id="oAmt" placeholder="จำนวนเงิน (฿)" inputmode="decimal">
+      <button class="btn btn-green" onclick="addOrder()">
+        ➕ เพิ่มออเดอร์
+      </button>
+      <div class="quick-row">
+        ${[40, 60, 80, 100, 120].map(a => `<button class="quick-btn" onclick="qAdd(${a})">+${a}</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">⭐ ทิป</div>
+      <div class="tip-row">
+        ${[10, 20, 30, 50].map(t => `<button class="tip-chip ${S.pendTip === t ? 'on' : ''}" onclick="selTip(${t})">⭐ +${t}</button>`).join('')}
+      </div>
+      <input class="inp" type="number" id="tAmt" placeholder="กรอกจำนวนทิป (฿)" inputmode="decimal">
+      <button class="btn btn-amber" onclick="addTip()">
+        ⭐ บันทึกทิป${S.pendTip > 0 ? ` (+${S.pendTip} ฿)` : ''}
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="section-label">🧾 ค่าใช้จ่าย</div>
+      <input class="inp" type="text" id="eNote" placeholder="หมายเหตุ เช่น ⛽ น้ำมัน, 🍱 อาหาร, 🛠️ ซ่อม">
+      <input class="inp" type="number" id="eAmt" placeholder="จำนวนเงิน (฿)" inputmode="decimal">
+      <button class="btn btn-red" onclick="addExp()">
+        🧾 เพิ่มค่าใช้จ่าย
+      </button>
+    </div>
+
+    <div class="day-actions">
+      <button class="btn btn-green" style="flex:1.6" onclick="endDay()">
+        ✅ จบวัน & บันทึก
+      </button>
+      <button class="btn btn-dark" style="flex:1;font-size:12px" onclick="resetDay()">
+        🔄 รีเซ็ต
+      </button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="section-label" style="margin-bottom:0">📦 ออเดอร์วันนี้</div>
+        <span style="font-size:12px;color:var(--muted)">${S.cnt} รายการ</span>
+      </div>
+      ${S.orders.length === 0
+        ? `<div class="empty-state"><i class="ti ti-package"></i><div class="empty-text">ยังไม่มีออเดอร์</div></div>`
+        : S.orders.map((o, i) => `
+          <div class="order-item">
+            <div>
+              <div class="order-num">ออเดอร์ #${S.orders.length - i}</div>
+              <div class="order-time">${new Date(o.id).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="green" style="font-weight:700;font-family:'IBM Plex Mono',monospace">+${fmt(o.amount)} ฿</span>
+              <button class="order-del" onclick="delOrder(${o.id})">×</button>
+            </div>
+          </div>`).join('')}
+    </div>
+    <div class="ver-tag">v5.0 · Rider Tracker</div>
+  `;
+  if (S.wOn && S.wStart) startTick();
+}
+
+function renderHistory() {
+  const hlist = [...S.history].reverse();
+  const tInc = S.history.reduce((a, b) => a + (b.income || 0), 0);
+  const tTip = S.history.reduce((a, b) => a + (b.tips || 0), 0);
+  const tExp = S.history.reduce((a, b) => a + (b.expenses || 0), 0);
+  const tOrd = S.history.reduce((a, b) => a + (b.orders || 0), 0);
+  const tMs = S.history.reduce((a, b) => a + (b.workedMs || 0), 0);
+  const tNet = tInc + tTip - tExp;
+  const tRph = ratePerHour(tInc + tTip, tMs);
+
+  const selM = new Date(S.selM);
+  const dim = new Date(selM.getFullYear(), selM.getMonth() + 1, 0).getDate();
+  const fd = new Date(selM.getFullYear(), selM.getMonth(), 1).getDay();
+  const calDays = [];
+  for (let i = 0; i < fd; i++) calDays.push(null);
+  for (let d = 1; d <= dim; d++) {
+    const inc = S.history.filter(it => {
+      const dt = new Date(it.id);
+      return dt.getDate() === d && dt.getMonth() === selM.getMonth() && dt.getFullYear() === selM.getFullYear();
+    }).reduce((s, it) => s + (it.income || 0), 0);
+    calDays.push({ d, inc });
+  }
+
+  const grouped = {};
+  S.history.forEach(item => {
+    const dt = new Date(item.id);
+    let k = dt.toLocaleDateString('th-TH');
+    if (S.hView === 'weekly') { const fd2 = new Date(dt); fd2.setDate(dt.getDate() - dt.getDay()); k = 'สัปดาห์ ' + fd2.toLocaleDateString('th-TH'); }
+    else if (S.hView === 'monthly') k = dt.toLocaleString('th-TH', { month: 'long', year: 'numeric' });
+    if (!grouped[k]) grouped[k] = { income: 0, orders: 0, tips: 0, expenses: 0 };
+    grouped[k].income += item.income || 0; grouped[k].orders += item.orders || 0;
+    grouped[k].tips += item.tips || 0; grouped[k].expenses += item.expenses || 0;
+  });
+  const maxG = Math.max(...Object.values(grouped).map(v => v.income), 1);
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="card">
+      <div class="section-label">📈 ภาพรวมทั้งหมด</div>
+      <div class="mini-grid">
+        <div class="mini-box mb-g">
+          <div class="mini-label" style="color:var(--green-border)">💰 รายรับรวม</div>
+          <div class="mini-val green">${fmt(tInc)} ฿</div>
+        </div>
+        <div class="mini-box mb-b">
+          <div class="mini-label" style="color:var(--blue-border)">📊 กำไรสุทธิ</div>
+          <div class="mini-val blue">${fmt(tNet)} ฿</div>
+        </div>
+        <div class="mini-box mb-a">
+          <div class="mini-label" style="color:var(--amber-border)">⭐ ทิปรวม</div>
+          <div class="mini-val amber">${fmt(tTip)} ฿</div>
+        </div>
+        <div class="mini-box mb-r">
+          <div class="mini-label" style="color:var(--red-border)">🧾 ค่าใช้จ่ายรวม</div>
+          <div class="mini-val red">${fmt(tExp)} ฿</div>
+        </div>
+      </div>
+      <div class="grid3" style="margin-bottom:0">
+        <div style="background:var(--bg2);border-radius:10px;padding:10px;border:0.5px solid var(--border2);text-align:center">
+          <div style="font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">ออเดอร์</div>
+          <div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace">${tOrd}</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:10px;padding:10px;border:0.5px solid var(--border2);text-align:center">
+          <div style="font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">เฉลี่ย</div>
+          <div style="font-size:16px;font-weight:700;color:var(--blue);font-family:'IBM Plex Mono',monospace">${fmt(tOrd > 0 ? tInc / tOrd : 0)}</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:10px;padding:10px;border:0.5px solid var(--border2);text-align:center">
+          <div style="font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">฿/ชม.</div>
+          <div style="font-size:16px;font-weight:700;color:var(--purple);font-family:'IBM Plex Mono',monospace">${fmt(tRph)}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-sm">
+      <div class="cal-nav">
+        <button class="cal-nav-btn" onclick="prevM()">‹</button>
+        <span class="cal-month">${selM.toLocaleString('th-TH', { month: 'long', year: 'numeric' })}</span>
+        <button class="cal-nav-btn" onclick="nextM()">›</button>
+      </div>
+      <div class="cal-hdr">${['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'].map(d => `<div class="cal-dhdr">${d}</div>`).join('')}</div>
+      <div class="cal-grid">
+        ${calDays.map(item => item === null
+          ? `<div></div>`
+          : `<div class="cday ${item.inc > 0 ? 'has-data' : ''}">
+               <span class="cd-num">${item.d}</span>
+               <span class="cd-val">${item.inc > 0 ? fmt(item.inc) : ''}</span>
+             </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sub-bar">
+        ${[['daily', 'รายวัน'], ['weekly', 'สัปดาห์'], ['monthly', 'เดือน']].map(([v, lb]) =>
+          `<button class="sub-btn ${S.hView === v ? 'on' : ''}" onclick="setHV('${v}')">${lb}</button>`).join('')}
+      </div>
+      ${Object.keys(grouped).length === 0
+        ? `<div class="empty-state"><i class="ti ti-chart-bar-off"></i><div class="empty-text">ยังไม่มีข้อมูล</div></div>`
+        : Object.entries(grouped).reverse().map(([k, v]) => `
+          <div class="ov-seg">
+            <div class="ov-row">
+              <span style="color:var(--muted);font-weight:600">${k}</span>
+              <span class="green" style="font-weight:700;font-family:'IBM Plex Mono',monospace">${fmt(v.income)} ฿</span>
+            </div>
+            <div class="ov-track"><div class="ov-bar" style="width:${Math.min((v.income/maxG)*100,100)}%"></div></div>
+            <div style="color:var(--muted);font-size:11px;margin-top:3px">${v.orders} ออเดอร์ · ทิป ${fmt(v.tips)} · ค่าใช้จ่าย ${fmt(v.expenses)}</div>
+          </div>`).join('')}
+    </div>
+
+    <div class="section-label" style="margin:4px 0 8px;padding:0 2px">📅 ประวัติแต่ละวัน</div>
+    ${hlist.length === 0
+      ? `<div class="card" style="text-align:center;padding:28px">
+           <div class="empty-state" style="padding:0"><i class="ti ti-calendar-off"></i><div class="empty-text">ยังไม่มีประวัติ</div><div class="empty-sub">กด "จบวัน & บันทึก" หลังทำงานเสร็จ</div></div>
+         </div>`
+      : hlist.map(item => {
+          const net = (item.income || 0) + (item.tips || 0) - (item.expenses || 0);
+          const avg2 = item.orders > 0 ? item.income / item.orders : 0;
+          const rph2 = ratePerHour((item.income || 0) + (item.tips || 0), item.workedMs || 0);
+          const exp = S.expanded[item.id];
+          return `
+          <div class="hist-card">
+            <div class="hist-head" onclick="togExp(${item.id})">
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:700">${item.date}</div>
+                <div style="display:flex;gap:8px;margin-top:5px;flex-wrap:wrap;align-items:center">
+                  <span style="font-size:12px;color:var(--muted)"><i class="ti ti-package" style="font-size:11px"></i> ${item.orders} ออเดอร์</span>
+                  <span style="font-size:12px;color:var(--muted)"><i class="ti ti-clock" style="font-size:11px"></i> ${workedStr(item.workedMs || 0)}</span>
+                </div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:7px">
+                  <span class="pill pill-g">+${fmt(item.income)} ฿</span>
+                  ${(item.tips || 0) > 0 ? `<span class="pill pill-a">ทิป +${fmt(item.tips)} ฿</span>` : ''}
+                  ${(item.expenses || 0) > 0 ? `<span class="pill pill-r">−${fmt(item.expenses)} ฿</span>` : ''}
+                </div>
+              </div>
+              <div style="text-align:right;margin-left:12px;flex-shrink:0">
+                <div class="${net >= 0 ? 'green' : 'red'}" style="font-size:20px;font-weight:700;font-family:'IBM Plex Mono',monospace">${fmt(net)}</div>
+                <div style="font-size:10px;color:var(--muted);margin-top:1px">สุทธิ ฿</div>
+                <div style="display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:8px">
+                  <button class="btn-edit-hist" onclick="event.stopPropagation();openEditModal(${item.id})">✏️ แก้ไข</button>
+                  <i class="ti ti-chevron-down hist-chevron ${exp ? 'open' : ''}"></i>
+                </div>
+              </div>
+            </div>
+            ${exp ? `
+            <div class="hist-body">
+              <div class="mini-grid">
+                <div class="mini-box mb-g">
+                  <div class="mini-label" style="color:var(--green-border)">💰 รายรับ</div>
+                  <div class="mini-val green">${fmt(item.income)} ฿</div>
+                </div>
+                <div class="mini-box mb-a">
+                  <div class="mini-label" style="color:var(--amber-border)">⭐ ทิป</div>
+                  <div class="mini-val amber">${fmt(item.tips || 0)} ฿</div>
+                </div>
+                <div class="mini-box mb-r">
+                  <div class="mini-label" style="color:var(--red-border)">🧾 ค่าใช้จ่าย</div>
+                  <div class="mini-val red">${fmt(item.expenses || 0)} ฿</div>
+                </div>
+                <div class="mini-box mb-b">
+                  <div class="mini-label" style="color:var(--blue-border)">📊 กำไรสุทธิ</div>
+                  <div class="mini-val blue">${fmt(net)} ฿</div>
+                </div>
+              </div>
+              <div style="background:var(--bg3);border-radius:12px;overflow:hidden;border:0.5px solid var(--border2);margin-bottom:12px">
+                <div class="detail-row"><span class="detail-label">⏱️ เวลาทำงาน</span><span style="font-weight:600;color:var(--muted)">${workedStr(item.workedMs || 0)}</span></div>
+                <div class="detail-row"><span class="detail-label">📦 ออเดอร์</span><span style="font-weight:600;color:var(--muted)">${item.orders} รายการ</span></div>
+                <div class="detail-row"><span class="detail-label">📊 เฉลี่ย/ออเดอร์</span><span style="font-weight:600;color:var(--blue);font-family:'IBM Plex Mono',monospace">${fmt(avg2)} ฿</span></div>
+                <div class="detail-row"><span class="detail-label">⚡ ฿/ชั่วโมง</span><span style="font-weight:600;color:var(--purple);font-family:'IBM Plex Mono',monospace">${fmt(rph2)} ฿</span></div>
+              </div>
+              ${(item.expenseList || []).length > 0 ? `
+              <div style="margin-bottom:12px">
+                <div class="section-label">🧾 รายการค่าใช้จ่าย</div>
+                ${item.expenseList.map(e => `
+                  <div class="detail-row" style="padding:8px 0">
+                    <span style="color:var(--muted);font-size:13px">${e.note}</span>
+                    <span class="red" style="font-weight:600;font-family:'IBM Plex Mono',monospace">−${fmt(e.amount)} ฿</span>
+                  </div>`).join('')}
+              </div>` : ''}
+              <div class="net-final">
+                <div style="font-size:9px;font-weight:700;color:var(--green-border);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ผลรวมสุทธิ</div>
+                <div class="green" style="font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace">${fmt(net)} ฿</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:5px">${fmt(item.income)} + ${fmt(item.tips || 0)} (ทิป) − ${fmt(item.expenses || 0)} (ค่าใช้จ่าย)</div>
+              </div>
+            </div>` : ''}
+          </div>`;
+        }).join('')}
+  `;
+}
+
+function renderSettings() {
+  document.getElementById('mainContent').innerHTML = `
+    <div class="card">
+      <div class="set-sec">
+        <div class="set-label">🎯 เป้าหมายรายได้ต่อวัน (฿)</div>
+        <input class="inp" type="number" value="${S.goal}" onchange="S.goal=Number(this.value);save()" inputmode="decimal">
+      </div>
+      <div class="set-sec">
+        <div class="set-label">📦 เป้าหมายออเดอร์ต่อวัน</div>
+        <input class="inp" type="number" value="${S.oGoal}" onchange="S.oGoal=Number(this.value);save()" inputmode="decimal">
+      </div>
+      <div class="set-sec">
+        <div class="set-label">🎨 ธีมสี</div>
+        <div class="theme-row" style="flex-wrap:wrap;gap:6px">
+          ${[['dark','#0c0c0e','🌑 ดำ'],['midnight','#05050f','🌌 คืน'],['forest','#050f09','🌲 ป่า'],['slate','#090c11','🩶 เทา'],['white','#f5f5f7','☀️ ขาว']].map(([id,bg,lb])=>
+            `<button class="th-btn ${S.theme===id?'on':''}" style="flex:none;min-width:calc(33% - 4px)" onclick="setTh('${id}')">
+               <span class="th-dot" style="background:${bg};border:1px solid #ccc"></span>${lb}
+             </button>`).join('')}
+        </div>
+      </div>
+      <hr class="divider">
+      <div class="set-label" style="margin-bottom:10px">🗂️ จัดการข้อมูล</div>
+      <div class="act-row">
+        <button class="btn btn-dark btn-sm" style="flex:1;font-size:13px" onclick="expData()">
+          📤 Export JSON
+        </button>
+        <button class="btn btn-red btn-sm" style="flex:1;font-size:13px" onclick="clrAll()">
+          🗑️ ล้างทั้งหมด
+        </button>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center">
+      <div style="font-size:24px;margin-bottom:8px">📲</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">ติดตั้งเป็นแอปมือถือ</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px">ใช้งานได้แบบ offline บนหน้าจอโทรศัพท์</div>
+      <button class="btn btn-green" onclick="installApp()">
+        📲 ติดตั้งแอป
+      </button>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">
+        iOS: แตะ <b>Share</b> → "เพิ่มในหน้าจอหลัก"<br>
+        Android: เมนู → "ติดตั้งแอป" หรือ "Add to Home Screen"
+      </div>
+    </div>
+
+    <!-- CREDIT WATERMARK CARD -->
+    <div class="credit-card">
+      <div class="credit-watermark">RIDER TRACKER</div>
+      <div class="credit-inner">
+        <div class="credit-logo">🏍️</div>
+        <div class="credit-name">Rider Tracker</div>
+        <div class="credit-version">v5.0 · Personal Edition</div>
+        <div class="credit-divider"></div>
+        <div class="credit-owner-label">Developed &amp; Owned by</div>
+        <div class="credit-owner">Kaweewat</div>
+        <div class="credit-contact">
+          <a href="mailto:kaweewat.devsec@gmail.com" class="credit-email">
+            ✉️ kaweewat.devsec@gmail.com
+          </a>
+        </div>
+        <div class="credit-note">สงวนลิขสิทธิ์ · All rights reserved © ${new Date().getFullYear()}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ACTIONS
+function toggleWork() {
+  if (!S.wOn) {
+    S.wOn = true;
+    S.wStart = Date.now();
+    save();
+    render();
+    startTick(); // start AFTER render so tdisp exists in DOM
+  } else {
+    S.wOn = false;
+    if (ticker) { clearInterval(ticker); ticker = null; }
+    save();
+    render();
+  }
+}
+
+function adjOrd(d) { S.cnt = Math.max(0, S.cnt + d); save(); render(); }
+
+function addOrder() {
+  const a = Number(document.getElementById('oAmt')?.value);
+  if (!a || a <= 0) return;
+  S.orders.unshift({ id: Date.now(), amount: a }); S.income += a; S.cnt++;
+  save(); render();
+}
+
+function qAdd(a) { S.orders.unshift({ id: Date.now(), amount: a }); S.income += a; S.cnt++; save(); render(); }
+
+function selTip(a) { S.pendTip = S.pendTip === a ? 0 : a; render(); }
+
+function addTip() {
+  const c = Number(document.getElementById('tAmt')?.value);
+  const a = c > 0 ? c : S.pendTip;
+  if (!a || a <= 0) return;
+  S.tips += a; S.pendTip = 0; save(); render();
+}
+
+function addExp() {
+  const a = Number(document.getElementById('eAmt')?.value);
+  const n = document.getElementById('eNote')?.value || 'ค่าใช้จ่ายอื่น';
+  if (!a || a <= 0) return;
+  S.expenses += a; S.expList.unshift({ id: Date.now(), amount: a, note: n });
+  save(); render();
+}
+
+function delOrder(id) {
+  const o = S.orders.find(x => x.id === id); if (!o) return;
+  S.income = Math.max(0, S.income - o.amount); S.cnt = Math.max(0, S.cnt - 1);
+  S.orders = S.orders.filter(x => x.id !== id); save(); render();
+}
+
+function endDay() {
+  if (S.income === 0 && S.cnt === 0) { alert('ยังไม่มีข้อมูลวันนี้'); return; }
+  const ms = S.wStart ? Date.now() - S.wStart : 0;
+  S.history.push({
+    id: Date.now(),
+    date: new Date().toLocaleDateString('th-TH', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }),
+    income: S.income, expenses: S.expenses, tips: S.tips,
+    orders: S.cnt, workedMs: ms, expenseList: [...S.expList]
+  });
+  S.income = 0; S.expenses = 0; S.tips = 0; S.orders = []; S.cnt = 0; S.expList = [];
+  S.wOn = false; S.wStart = null; S.pendTip = 0;
+  if (ticker) { clearInterval(ticker); ticker = null; }
+  save(); render(); alert('✅ บันทึกแล้ว!');
+}
+
+function resetDay() {
+  if (!confirm('รีเซ็ตวันนี้? ประวัติจะยังอยู่')) return;
+  S.income = 0; S.expenses = 0; S.tips = 0; S.orders = []; S.cnt = 0; S.expList = [];
+  S.wOn = false; S.wStart = null; S.pendTip = 0;
+  if (ticker) { clearInterval(ticker); ticker = null; }
+  save(); render();
+}
+
+function togExp(id) { S.expanded[id] = !S.expanded[id]; render(); }
+function setHV(v) { S.hView = v; save(); render(); }
+function prevM() { const d = new Date(S.selM); d.setMonth(d.getMonth() - 1); S.selM = d.toISOString(); save(); render(); }
+function nextM() { const d = new Date(S.selM); d.setMonth(d.getMonth() + 1); S.selM = d.toISOString(); save(); render(); }
+function setTh(t) { S.theme = t; applyTheme(); save(); render(); }
+
+function expData() {
+  const b = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href = u; a.download = 'rider_data.json'; a.click();
+}
+
+function clrAll() {
+  if (!confirm('ลบข้อมูลทั้งหมด?')) return;
+  S = { goal: 2000, oGoal: 30, income: 0, expenses: 0, tips: 0, expList: [], orders: [], cnt: 0, history: [], theme: 'dark', hView: 'daily', selM: new Date().toISOString(), wStart: null, wOn: false, expanded: {}, pendTip: 0, showInstall: false };
+  if (ticker) { clearInterval(ticker); ticker = null; }
+  save(); applyTheme(); render();
+}
+
+// CHART PAGE
+function setChartRange(r) { chartRange = r; render(); }
+
+function renderChart() {
+  const now = Date.now();
+  let days = chartRange === '7' ? 7 : chartRange === '30' ? 30 : 9999;
+  const cutoff = now - days * 86400000;
+  const filtered = chartRange === 'all'
+    ? S.history
+    : S.history.filter(h => h.id >= cutoff);
+
+  const mc = document.getElementById('mainContent');
+
+  if (filtered.length === 0) {
+    mc.innerHTML = `
+      <div class="card">
+        <div class="chart-range-bar">
+          ${[['7','7 วัน'],['30','30 วัน'],['all','ทั้งหมด']].map(([v,lb])=>
+            `<button class="cr-btn ${chartRange===v?'on':''}" onclick="setChartRange('${v}')">${lb}</button>`).join('')}
+        </div>
+        <div class="no-data-chart">
+          <div style="font-size:32px;margin-bottom:10px">📭</div>
+          <div>ยังไม่มีข้อมูลในช่วงนี้</div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Totals
+  const totIncome   = filtered.reduce((s,h) => s + (h.income||0), 0);
+  const totTips     = filtered.reduce((s,h) => s + (h.tips||0), 0);
+  const totExpenses = filtered.reduce((s,h) => s + (h.expenses||0), 0);
+  const totNet      = totIncome + totTips - totExpenses;
+  const totOrders   = filtered.reduce((s,h) => s + (h.orders||0), 0);
+  const grandTotal  = totIncome + totTips + totExpenses || 1;
+
+  // Pie data
+  const slices = [
+    { label:'รายรับ',    val: totIncome,   color:'#34d399', cls:'mb-g' },
+    { label:'ทิป',       val: totTips,     color:'#fbbf24', cls:'mb-a' },
+    { label:'ค่าใช้จ่าย', val: totExpenses, color:'#f87171', cls:'mb-r' },
+  ].filter(s => s.val > 0);
+
+  // Build SVG pie
+  const cx = 90, cy = 90, r = 72, hole = 42;
+  let startAngle = -Math.PI / 2;
+  const total4pie = slices.reduce((s,sl) => s + sl.val, 0) || 1;
+  let paths = '';
+  slices.forEach(sl => {
+    const angle = (sl.val / total4pie) * Math.PI * 2;
+    const endAngle = startAngle + angle;
+    const x1 = cx + r * Math.cos(startAngle), y1 = cy + r * Math.sin(startAngle);
+    const x2 = cx + r * Math.cos(endAngle),   y2 = cy + r * Math.sin(endAngle);
+    const hx1 = cx + hole * Math.cos(startAngle), hy1 = cy + hole * Math.sin(startAngle);
+    const hx2 = cx + hole * Math.cos(endAngle),   hy2 = cy + hole * Math.sin(endAngle);
+    const large = angle > Math.PI ? 1 : 0;
+    paths += `<path d="M${hx1},${hy1} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${hx2},${hy2} A${hole},${hole} 0 ${large},0 ${hx1},${hy1}" fill="${sl.color}" opacity="0.9"/>`;
+    startAngle = endAngle;
+  });
+
+  // Bar chart last N days sorted ascending
+  const sorted = [...filtered].sort((a,b) => a.id - b.id);
+  const maxNet = Math.max(...sorted.map(h => Math.abs((h.income||0)+(h.tips||0)-(h.expenses||0))), 1);
+  const barRows = sorted.slice(-14).map(h => {
+    const net = (h.income||0) + (h.tips||0) - (h.expenses||0);
+    const pct = Math.min(Math.abs(net)/maxNet*100, 100);
+    const col = net >= 0 ? 'var(--green)' : 'var(--red)';
+    const shortDate = h.date.replace(/\s\d{4}/,'').replace(/^[^ ]+ /,'');
+    return `
+      <div class="bc-row">
+        <div class="bc-top">
+          <span class="bc-lbl">${shortDate}</span>
+          <span style="font-weight:700;color:${col};font-family:'IBM Plex Mono',monospace">${net>=0?'+':''}${fmt(net)} ฿</span>
+        </div>
+        <div class="bc-track">
+          <div class="bc-fill" style="width:${pct}%;background:${col}"></div>
+        </div>
+        <div class="bc-sub">${h.orders} ออเดอร์ · รับ ${fmt(h.income)} · จ่าย ${fmt(h.expenses)}</div>
+      </div>`;
+  }).join('');
+
+  mc.innerHTML = `
+    <div class="card">
+      <div class="chart-range-bar">
+        ${[['7','7 วัน'],['30','30 วัน'],['all','ทั้งหมด']].map(([v,lb])=>
+          `<button class="cr-btn ${chartRange===v?'on':''}" onclick="setChartRange('${v}')">${lb}</button>`).join('')}
+      </div>
+
+      <!-- summary boxes -->
+      <div class="chart-summary-row">
+        <div class="cs-box mb-g">
+          <div class="cs-lbl" style="color:var(--green-border)">รายรับรวม</div>
+          <div class="cs-val green">${fmt(totIncome+totTips)}</div>
+        </div>
+        <div class="cs-box mb-r">
+          <div class="cs-lbl" style="color:var(--red-border)">ค่าใช้จ่าย</div>
+          <div class="cs-val red">${fmt(totExpenses)}</div>
+        </div>
+        <div class="cs-box mb-b">
+          <div class="cs-lbl" style="color:var(--blue-border)">กำไรสุทธิ</div>
+          <div class="cs-val ${totNet>=0?'green':'red'}">${fmt(totNet)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIE CHART -->
+    <div class="card">
+      <div class="section-label">🥧 สัดส่วนรายรับ-รายจ่าย</div>
+      <div class="pie-wrap">
+        <svg width="180" height="180" viewBox="0 0 180 180">
+          ${paths}
+          <text x="90" y="85" text-anchor="middle" font-size="11" fill="#888" font-family="IBM Plex Mono,monospace" font-weight="700">สุทธิ</text>
+          <text x="90" y="103" text-anchor="middle" font-size="15" fill="${totNet>=0?'#34d399':'#f87171'}" font-family="IBM Plex Mono,monospace" font-weight="700">${fmt(totNet)}</text>
+        </svg>
+      </div>
+      <div class="pie-legend">
+        ${slices.map(sl => {
+          const pct = ((sl.val/total4pie)*100).toFixed(1);
+          return `
+          <div class="leg-item">
+            <div class="leg-dot" style="background:${sl.color}"></div>
+            <span class="leg-label">${sl.label}</span>
+            <span class="leg-val" style="color:${sl.color}">${fmt(sl.val)} ฿</span>
+            <span class="leg-pct">${pct}%</span>
+          </div>`;
+        }).join('')}
+        <div class="leg-item" style="border-top:0.5px solid var(--border2);padding-top:8px;margin-top:2px">
+          <div class="leg-dot" style="background:#60a5fa"></div>
+          <span class="leg-label">ออเดอร์ทั้งหมด</span>
+          <span class="leg-val" style="color:var(--blue)">${totOrders} งาน</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="card">
+      <div class="section-label">📊 กำไรสุทธิรายวัน</div>
+      <div class="bar-chart-wrap">${barRows}</div>
+    </div>
+  `;
+}
+
+// EDIT HISTORY
+let editingHistId = null;
+
+function openEditModal(id) {
+  const item = S.history.find(x => x.id === id);
+  if (!item) return;
+  editingHistId = id;
+  document.getElementById('editIncome').value = item.income || 0;
+  document.getElementById('editTips').value = item.tips || 0;
+  document.getElementById('editExpenses').value = item.expenses || 0;
+  document.getElementById('editOrders').value = item.orders || 0;
+  document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  editingHistId = null;
+  document.getElementById('editModal').style.display = 'none';
+}
+
+function saveEditHistory() {
+  const item = S.history.find(x => x.id === editingHistId);
+  if (!item) return;
+  item.income = Number(document.getElementById('editIncome').value) || 0;
+  item.tips = Number(document.getElementById('editTips').value) || 0;
+  item.expenses = Number(document.getElementById('editExpenses').value) || 0;
+  item.orders = Number(document.getElementById('editOrders').value) || 0;
+  closeEditModal();
+  save(); render();
+}
+
+function delHistory() {
+  if (!confirm('ลบประวัติวันนี้?')) return;
+  S.history = S.history.filter(x => x.id !== editingHistId);
+  closeEditModal();
+  save(); render();
+}
+
+// SERVICE WORKER for offline
+if ('serviceWorker' in navigator) {
+  const sw = `
+const CACHE = 'rider-v1';
+const ASSETS = [location.href];
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS))));
+self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+  `;
+  const blob = new Blob([sw], { type: 'application/javascript' });
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+}
+
+load();
+
+// Fix single-finger scroll in WebView/APK
+document.addEventListener('touchstart', function(e) {}, { passive: true });
+document.addEventListener('touchmove', function(e) {}, { passive: true });
+</script>
+</body>
+</html>
