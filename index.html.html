@@ -113,18 +113,21 @@ html, body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  min-height: 100dvh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
-body { overscroll-behavior: none; touch-action: pan-y; }
+body {
+  overscroll-behavior-y: none;
+  touch-action: pan-y;
+}
 
 .app-shell {
   max-width: 430px;
   margin: 0 auto;
-  min-height: 100dvh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -220,12 +223,9 @@ body.theme-white .work-badge.off { background: #f0f0f5; color: var(--muted); bor
 /* SCROLL CONTENT */
 .scroll-content {
   flex: 1;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  padding: 12px 14px calc(16px + var(--safe-bottom));
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
+  padding: 12px 14px 32px;
   touch-action: pan-y;
-  overscroll-behavior-y: contain;
 }
 
 /* CARDS */
@@ -1715,9 +1715,15 @@ self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r
 
 load();
 
-// Fix single-finger scroll in WebView/APK
+// Force allow single-finger scroll in WebView/APK
 document.addEventListener('touchstart', function(e) {}, { passive: true });
-document.addEventListener('touchmove', function(e) {}, { passive: true });
+document.addEventListener('touchmove', function(e) {
+  // never preventDefault — let WebView scroll freely
+}, { passive: true });
+
+// Ensure body is scrollable (some WebViews need this set at runtime)
+document.body.style.overflowY = 'auto';
+document.body.style.webkitOverflowScrolling = 'touch';
 </script>
 </body>
 </html>
